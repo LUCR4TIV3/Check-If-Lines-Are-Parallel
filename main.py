@@ -21,9 +21,7 @@ class Line:
         return f"{self.a}x{self._sign()}{self.b}y={self.c}"
 
     def __eq__(self, other):
-        if isinstance(other, Line):
-            return self.a == other.a and self.b == other.b and self.c == other.c
-        return False
+        return isinstance(other, Line) or self.a == other.a and self.b == other.b and self.c == other.c
 
     def _get_input_from_user(self, coefficient: str) -> int:
         try:
@@ -40,12 +38,6 @@ class ParallelLinesChecker:
         self.line1 = line1
         self.line2 = line2
 
-    def __repr__(self):
-        pass
-
-    def __str__(self):
-        pass
-
     def is_parallel(self) -> bool:
         if self.line1 == self.line2:
             print(
@@ -55,7 +47,7 @@ class ParallelLinesChecker:
                 slope = self.line1.get_slope()
                 slope2 = self.line2.get_slope()
             except ZeroDivisionError:
-                if self.line1.b == 0 or self.line2.b:
+                if self.line1.b == 0 or self.line2.b == 0:
                     print("The line is vertical, and the slope is undefined.")
             return slope == slope2
 
@@ -68,13 +60,13 @@ if __name__ == '__main__':
     line1.set_variable("b")
     line1.set_variable("c")
 
-    print("Line 1: " + line1)
+    print(f"Line 1: {line1} \n")
 
     line2.set_variable("a")
     line2.set_variable("b")
     line2.set_variable("c")
 
-    print("Line 2: " + line2)
+    print(f"Line 2: {line2} \n")
 
     parallel_line_checker = ParallelLinesChecker(line1, line2)
 
